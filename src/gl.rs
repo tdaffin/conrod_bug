@@ -13,7 +13,7 @@ use crate::gl_res;
 pub fn run(){
     // window setup
     let opengl = OpenGL::V3_2;
-    let mut glutin_window: GlutinWindow = WindowSettings::new("test", [640, 480])
+    let mut window: GlutinWindow = WindowSettings::new("test", [640, 480])
         .opengl(opengl)
         .srgb(false)
         .samples(4)
@@ -22,16 +22,16 @@ pub fn run(){
     let mut gl_graphics = GlGraphics::new(opengl);
 
     // conrod setup
-    let size = glutin_window.size();
+    let size = window.size();
     let mut gui = ui::Gui::new(size.width, size.height);
 
     let mut gui_res = gl_res::GuiResources::new(1024, 1024);
 
     // event loop setup
     let mut events = Events::new(EventSettings::new().swap_buffers(false));
-    while let Some(e) = events.next(&mut glutin_window) {
+    while let Some(e) = events.next(&mut window) {
 
-        let size = glutin_window.size();
+        let size = window.size();
         if let Some(e) = conrod_piston::event::convert(e.clone(), size.width, size.height) {
             gui.handle_event(e);
         }
@@ -44,7 +44,7 @@ pub fn run(){
                     graphics::clear([0.0, 0.0, 0.0, 1.0], gl);
                     gui_res.draw_primitives(primitives, c, gl);
                 });
-                glutin_window.swap_buffers();
+                window.swap_buffers();
             }
         }
     }
