@@ -8,7 +8,7 @@ use piston::{
 
 
 use crate::ui;
-use crate::gl_res;
+use crate::gl_rend;
 
 pub fn run(){
     // window setup
@@ -25,7 +25,7 @@ pub fn run(){
     let size = window.size();
     let mut gui = ui::Gui::new(size.width, size.height);
 
-    let mut gui_res = gl_res::GuiResources::new(1024, 1024);
+    let mut gui_render = gl_rend::GuiRender::new(1024, 1024);
 
     // event loop setup
     let mut events = Events::new(EventSettings::new().swap_buffers(false));
@@ -42,7 +42,7 @@ pub fn run(){
             if let Some(primitives) = gui.draw_if_changed() {
                 gl_graphics.draw(r.viewport(), |c, g| {
                     graphics::clear([0.0, 0.0, 0.0, 1.0], g);
-                    gui_res.draw_primitives(primitives, c, g);
+                    gui_render.draw_primitives(primitives, c, g);
                 });
                 window.swap_buffers();
             }

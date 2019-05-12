@@ -1,7 +1,7 @@
 use piston_window::*;
 
 use crate::ui;
-use crate::pist_res;
+use crate::pist_rend;
 
 pub fn run(){
     // window setup
@@ -17,7 +17,7 @@ pub fn run(){
     let size = window.size();
     let mut gui = ui::Gui::new(size.width, size.height);
 
-    let mut gui_res = pist_res::GuiResources::new(1024, 1024, &mut window);
+    let mut gui_res = pist_rend::GuiRender::new(1024, 1024, &mut window);
 
     // event loop setup
     let mut events = Events::new(EventSettings::new());//.swap_buffers(false));

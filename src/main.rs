@@ -1,9 +1,9 @@
 mod ui;
 
-mod gl_res;
+mod gl_rend;
 mod gl;
 
-mod pist_res;
+mod pist_rend;
 mod pist;
 
 fn main() {
