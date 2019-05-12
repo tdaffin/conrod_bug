@@ -8,7 +8,7 @@ use piston::{
 
 
 use crate::ui;
-use crate::gl_res::GuiResources;
+use crate::gl_res;
 
 pub fn run(){
     // window setup
@@ -25,7 +25,7 @@ pub fn run(){
     let size = glutin_window.size();
     let mut gui = ui::Gui::new(size.width, size.height);
 
-    let mut gui_res = GuiResources::new(1024, 1024);
+    let mut gui_res = gl_res::GuiResources::new(1024, 1024);
 
     // event loop setup
     let mut events = Events::new(EventSettings::new().swap_buffers(false));

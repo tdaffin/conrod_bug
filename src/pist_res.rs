@@ -1,8 +1,10 @@
-use texture::CreateTexture;
+use piston_window::*;
+//use texture::CreateTexture;
+use gfx_device_gl;
 
-type Tex = opengl_graphics::Texture;
-//type Tex = Texture<gfx_device_gl::Resources>;
-//type Gr = opengl_graphics::GlGraphics;
+//type Tex = opengl_graphics::Texture;
+type Tex = Texture<gfx_device_gl::Resources>;
+//type Gr = G2d;
 
 pub struct GuiResources{
     image_map: conrod_core::image::Map<Tex>,
@@ -12,16 +14,21 @@ pub struct GuiResources{
 }
 
 impl GuiResources {
-    pub fn new(width: u32, height: u32) -> Self {
+    pub fn new(width: u32, height: u32, window: &mut PistonWindow) -> Self {
         let glyph_cache = conrod_core::text::GlyphCache::builder()
             .dimensions(width, height)
             .build();
 
-        let glyph_cache_texture = opengl_graphics::Texture::create(
+//where F: gfx::Factory<R>
+        /*let glyph_cache_texture = gfx_graphics::Texture::create(
+            CreateTexture::create(
+
             &mut (),
-            texture::Format::Rgba8,
+            texture::Format::Rgba8,*/
+        let glyph_cache_texture = G2dTexture::from_memory_alpha(
+            &mut window.factory,
             &vec![0; (width*height*4) as usize],
-            [width, height],
+            width, height,
             &texture::TextureSettings::new(),
         ).expect("failed to create texture");
 
@@ -36,7 +43,7 @@ impl GuiResources {
 
     pub fn draw_primitives<P>(&mut self, primitives: P,
         context: graphics::context::Context,
-        graphics: &mut opengl_graphics::GlGraphics)
+        graphics: &mut G2d)
         where P: conrod_core::render::PrimitiveWalker
     {
         conrod_piston::draw::primitives(
@@ -53,7 +60,7 @@ impl GuiResources {
 }
 
 fn cache_glyphs(
-    _graphics: &mut opengl_graphics::GlGraphics,
+    graphics: &mut G2d,
     texture: &mut Tex,
     rect: conrod_core::text::rt::Rect<u32>,
     data: &[u8]
@@ -67,7 +74,7 @@ fn cache_glyphs(
     }
     texture::UpdateTexture::update(
         texture,
-        &mut (),
+        graphics.encoder,
         texture::Format::Rgba8,
         &new_data,
         [rect.min.x, rect.min.y],

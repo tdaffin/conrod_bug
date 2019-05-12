@@ -15,3 +15,6 @@ piston-texture = "0.6"
 pistoncore-glutin_window = "0.54"
 piston2d-graphics = "0.30"
 piston2d-opengl_graphics = "0.59"
+
+piston_window = "0.89.0"
+gfx_device_gl = "0.15"
