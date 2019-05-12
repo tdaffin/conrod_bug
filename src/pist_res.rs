@@ -8,7 +8,6 @@ type Tex = Texture<gfx_device_gl::Resources>;
 
 pub struct GuiResources{
     image_map: conrod_core::image::Map<Tex>,
-    //text_vertex_data: Vec<u8>,
     glyph_cache: conrod_core::text::GlyphCache<'static>,
     glyph_cache_texture: Tex,
 }
@@ -19,12 +18,6 @@ impl GuiResources {
             .dimensions(width, height)
             .build();
 
-//where F: gfx::Factory<R>
-        /*let glyph_cache_texture = gfx_graphics::Texture::create(
-            CreateTexture::create(
-
-            &mut (),
-            texture::Format::Rgba8,*/
         let glyph_cache_texture = G2dTexture::from_memory_alpha(
             &mut window.factory,
             &vec![0; (width*height*4) as usize],

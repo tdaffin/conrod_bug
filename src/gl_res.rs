@@ -6,7 +6,6 @@ type Tex = opengl_graphics::Texture;
 
 pub struct GuiResources{
     image_map: conrod_core::image::Map<Tex>,
-    //text_vertex_data: Vec<u8>,
     glyph_cache: conrod_core::text::GlyphCache<'static>,
     glyph_cache_texture: Tex,
 }
