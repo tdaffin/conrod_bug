@@ -12,11 +12,12 @@ fn main() {
     let width = 320;
 
     let mut gl = gl::Win::new(width);
+    let mut pist = pist::Win::new(width);
+
     while let Some(e) = gl.next_event(){
         gl.do_event(e);
     }
 
-    let mut pist = pist::Win::new(width);
     if let Some(glpos) = gl.window.get_position() {
         let mut pos = glpos;
         pos.x += width as i32 + 10;
