@@ -6,20 +6,8 @@ use piston::{
     window::{Window, WindowSettings},
 };
 use texture::CreateTexture;
-use conrod_core::{
-    Positionable,
-    Labelable,
-    Sizeable,
-    Borderable,
-    widget_ids,
-    widget::Widget,
-};
 
-widget_ids! {
-    struct Ids {
-        list,
-    }
-}
+use crate::ui;
 
 pub fn run(){
     // window setup
@@ -33,8 +21,8 @@ pub fn run(){
     let mut gl_graphics = GlGraphics::new(opengl);
 
     // conrod setup
-    let font = conrod_core::text::Font::from_bytes(include_bytes!("../assets/ProggyClean.ttf") as &[u8])
-        .expect("failed to load font");
+    let size = glutin_window.size();
+    let mut gui = ui::Gui::new(size.width, size.height);
 
     let mut glyph_cache = conrod_core::text::GlyphCache::builder()
         .dimensions(1024, 1024)
@@ -50,12 +38,7 @@ pub fn run(){
 
     let image_map = conrod_core::image::Map::new();
     let size = glutin_window.size();
-    let mut ui = conrod_core::UiBuilder::new([size.width, size.height]).build();
-    let ids = Ids::new(ui.widget_id_generator());
 
-    ui.theme.font_id = Some(ui.fonts.insert(font));
-    ui.theme.shape_color = conrod_core::color::CHARCOAL;
-    ui.theme.label_color = conrod_core::color::WHITE;
 
     // event loop setup
     let mut events = Events::new(EventSettings::new().swap_buffers(false));
@@ -63,13 +46,13 @@ pub fn run(){
 
         let size = glutin_window.size();
         if let Some(e) = conrod_piston::event::convert(e.clone(), size.width, size.height) {
-            ui.handle_event(e);
+            gui.handle_event(e);
         }
         if let Some(_) = e.update_args() {
-            set_ui(&mut ui, &ids);
+            gui.update();
         }
         if let Some(r) = e.render_args() {
-            if let Some(primitives) = ui.draw_if_changed() {
+            if let Some(primitives) = gui.draw_if_changed() {
                 gl_graphics.draw(r.viewport(), |c, gl| {
                     graphics::clear([0.0, 0.0, 0.0, 1.0], gl);
                     conrod_piston::draw::primitives(
@@ -89,31 +72,7 @@ pub fn run(){
     }
 }
 
-fn set_ui(ui: &mut conrod_core::Ui, ids: &Ids) {
-    let ui = &mut ui.set_widgets();
 
-    let (mut list_items_iter, scrollbar) = conrod_core::widget::List::flow_down(20)
-        .top_left_with_margins_on(ui.window, ui.win_h/2.0-50.0, 30.0)
-        .item_size(35.0)
-        .h(ui.win_h/2.0-30.0)
-        .w(ui.win_w/2.0-60.0)
-        .scrollbar_on_top()
-        .set(ids.list, ui);
-
-    scrollbar.map(|s| s.set(ui));
-
-    let mut i = 1;
-    while let Some(item) = list_items_iter.next(ui) {
-        let lbl = format!("Item {}", i);
-        let button = conrod_core::widget::Button::new()
-            .label(&lbl)
-            .border(1.0)
-            .border_color(conrod_core::color::WHITE)
-            .label_font_size(15);
-        item.set(button, ui);
-        i += 1;
-    }
-}
 
 fn cache_glyphs(
     _graphics: &mut opengl_graphics::GlGraphics,
