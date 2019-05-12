@@ -40,9 +40,9 @@ pub fn run(){
         }
         if let Some(r) = e.render_args() {
             if let Some(primitives) = gui.draw_if_changed() {
-                gl_graphics.draw(r.viewport(), |c, gl| {
-                    graphics::clear([0.0, 0.0, 0.0, 1.0], gl);
-                    gui_res.draw_primitives(primitives, c, gl);
+                gl_graphics.draw(r.viewport(), |c, g| {
+                    graphics::clear([0.0, 0.0, 0.0, 1.0], g);
+                    gui_res.draw_primitives(primitives, c, g);
                 });
                 window.swap_buffers();
             }
