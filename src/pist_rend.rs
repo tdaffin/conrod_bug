@@ -2,9 +2,8 @@ use piston_window::*;
 //use texture::CreateTexture;
 use gfx_device_gl;
 
-//type Tex = opengl_graphics::Texture;
 type Tex = Texture<gfx_device_gl::Resources>;
-//type Gr = G2d;
+type Gr<'a> = piston_window::G2d<'a>;
 
 pub struct GuiRender{
     image_map: conrod_core::image::Map<Tex>,
@@ -36,7 +35,7 @@ impl GuiRender {
 
     pub fn draw_primitives<P>(&mut self, primitives: P,
         context: graphics::context::Context,
-        graphics: &mut G2d)
+        graphics: &mut Gr)
         where P: conrod_core::render::PrimitiveWalker
     {
         conrod_piston::draw::primitives(
@@ -53,7 +52,7 @@ impl GuiRender {
 }
 
 fn cache_glyphs(
-    graphics: &mut G2d,
+    graphics: &mut Gr,
     texture: &mut Tex,
     rect: conrod_core::text::rt::Rect<u32>,
     data: &[u8]

@@ -1,8 +1,7 @@
 use texture::CreateTexture;
 
 type Tex = opengl_graphics::Texture;
-//type Tex = Texture<gfx_device_gl::Resources>;
-//type Gr = opengl_graphics::GlGraphics;
+type Gr = opengl_graphics::GlGraphics;
 
 pub struct GuiRender{
     image_map: conrod_core::image::Map<Tex>,
@@ -35,7 +34,7 @@ impl GuiRender {
 
     pub fn draw_primitives<P>(&mut self, primitives: P,
         context: graphics::context::Context,
-        graphics: &mut opengl_graphics::GlGraphics)
+        graphics: &mut Gr)
         where P: conrod_core::render::PrimitiveWalker
     {
         conrod_piston::draw::primitives(
@@ -52,7 +51,7 @@ impl GuiRender {
 }
 
 fn cache_glyphs(
-    _graphics: &mut opengl_graphics::GlGraphics,
+    _graphics: &mut Gr,
     texture: &mut Tex,
     rect: conrod_core::text::rt::Rect<u32>,
     data: &[u8]
