@@ -33,10 +33,17 @@ pub fn run(){
         if let Some(r) = e.render_args() {
             if let Some(primitives) = gui.draw_if_changed() {
                 //gl_graphics.draw(r.viewport(), |c, gl| {
-                window.draw_2d(&e, |c, g|{
+                window.window.make_current();
+                window.g2d.draw(
+                    &mut window.encoder,
+                    &window.output_color,
+                    &window.output_stencil,
+                    r.viewport(),|c, g|{
+                //window.draw_2d(&e, |c, g|{
                     graphics::clear([0.0, 0.0, 0.0, 1.0], g);
                     gui_res.draw_primitives(primitives, c, g);
                 });
+                window.encoder.flush(&mut window.device);
                 //window.swap_buffers();
             }
         }
