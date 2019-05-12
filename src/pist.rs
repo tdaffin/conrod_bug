@@ -1,28 +1,56 @@
 use piston_window::*;
+use gfx_graphics::Gfx2d;
 
 use crate::ui;
 use crate::pist_rend;
 
-pub fn run(){
-    // window setup
-    let settings = WindowSettings::new("test", [640, 480])
-        .srgb(false)
-        .samples(4);
-        //.exit_on_esc(true).samples(1);
-    let mut window: PistonWindow = settings.build()
-        .expect("Could not create window");
-    //let mut gl_graphics = GlGraphics::new(opengl);
+pub struct Win {
+    pub window: PistonWindow,
+    events: Events,
+    gui: ui::Gui,
+    gui_render: pist_rend::GuiRender,
+    g2d: Gfx2d<gfx_device_gl::Resources>,
+}
 
-    // conrod setup
-    let size = window.size();
-    let mut gui = ui::Gui::new(size.width, size.height);
+impl Win {
+    pub fn new(width: u32) -> Self {
+        // window setup
+        let opengl = OpenGL::V3_2;
+        let settings = WindowSettings::new("piston_window::G2d", [width, 480])
+            .opengl(opengl)
+            .srgb(false)
+            .samples(4);
+        let mut window: PistonWindow = settings.build()
+            .expect("Could not create window");
+        let g2d = Gfx2d::new(opengl, &mut window.factory);
 
-    let mut gui_res = pist_rend::GuiRender::new(1024, 1024, &mut window);
+        // conrod setup
+        let size = window.size();
+        let gui = ui::Gui::new(size.width, size.height);
 
-    // event loop setup
-    let mut events = Events::new(EventSettings::new());//.swap_buffers(false));
-    while let Some(e) = events.next(&mut window) {
+        let gui_render = pist_rend::GuiRender::new(1024, 1024, &mut window);
 
+        // event loop setup
+        let events = Events::new(EventSettings::new().swap_buffers(false));
+
+        Self {
+            window,
+            events,
+            gui,
+            gui_render,
+            g2d,
+        }
+    }
+
+    pub fn next_event(&mut self) -> Option<Event> {
+        self.events.next(&mut self.window)
+    }
+
+    pub fn do_event(&mut self, e: Event){
+        let window = &mut self.window;
+        let gui = &mut self.gui;
+        let g2d = &mut self.g2d;
+        let gui_render = &mut self.gui_render;
         let size = window.size();
         if let Some(e) = conrod_piston::event::convert(e.clone(), size.width, size.height) {
             gui.handle_event(e);
@@ -32,21 +60,21 @@ pub fn run(){
         }
         if let Some(r) = e.render_args() {
             if let Some(primitives) = gui.draw_if_changed() {
-                //gl_graphics.draw(r.viewport(), |c, gl| {
+                //g2d.draw(r.viewport(), |c, g| {
                 window.window.make_current();
-                window.g2d.draw(
+                //window.g2d.draw(
+                g2d.draw(
                     &mut window.encoder,
                     &window.output_color,
                     &window.output_stencil,
                     r.viewport(),|c, g|{
                 //window.draw_2d(&e, |c, g|{
                     graphics::clear([0.0, 0.0, 0.0, 1.0], g);
-                    gui_res.draw_primitives(primitives, c, g);
+                    gui_render.draw_primitives(primitives, c, g);
                 });
                 window.encoder.flush(&mut window.device);
-                //window.swap_buffers();
+                window.window.swap_buffers();
             }
         }
     }
 }
-

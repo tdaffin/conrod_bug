@@ -50,7 +50,7 @@ impl Gui {
             .top_left_with_margins_on(ui.window, ui.win_h/2.0-50.0, 30.0)
             .item_size(35.0)
             .h(ui.win_h/2.0-30.0)
-            .w(ui.win_w/2.0-60.0)
+            .w(ui.win_w-60.0)
             .scrollbar_on_top()
             .set(ids.list, ui);
 
