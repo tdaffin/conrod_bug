@@ -5,8 +5,15 @@ use conrod_core::{
     Sizeable,
     Borderable,
     Ui,
+    color,
     widget_ids,
-    widget::{Widget, Text, Toggle, List},
+    widget::{
+        Widget, 
+        Text, 
+        Toggle, 
+        RoundedRectangle, 
+        List
+    },
 };
 
 widget_ids! {
@@ -14,6 +21,7 @@ widget_ids! {
         title,
         text,
         toggle,
+        back_rect,
         list,
     }
 }
@@ -71,11 +79,24 @@ impl Gui {
             state.toggle = v;
         }
 
+        let list_x = ui.win_h/2.0-50.0;
+        let list_y = 30.0 + x_off;
+        let list_width = width;
+        let list_height = ui.win_h/2.0-30.0;
+        let radius = 10.0;
+        RoundedRectangle::fill_with(
+                [list_width + 2.0 * radius, list_height + 2.0 * radius],
+                radius,
+                color::LIGHT_ORANGE
+            )
+            .top_left_with_margins_on(ui.window, list_x - radius, list_y - radius)
+            .set(self.ids.back_rect, ui);
+
         let (mut list_items_iter, scrollbar) = List::flow_down(20)
-            .top_left_with_margins_on(ui.window, ui.win_h/2.0-50.0, 30.0 + x_off)
+            .top_left_with_margins_on(ui.window, list_x, list_y)
             .item_size(35.0)
-            .h(ui.win_h/2.0-30.0)
-            .w(width)
+            .h(list_height)
+            .w(list_width)
             .scrollbar_on_top()
             .set(self.ids.list, ui);
 
