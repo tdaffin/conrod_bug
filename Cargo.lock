@@ -130,8 +130,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "conrod_bug"
 version = "0.1.0"
 dependencies = [
- "conrod_core 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)",
- "conrod_piston 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)",
+ "conrod_core 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "conrod_piston 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "gfx_device_gl 0.15.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "piston 0.42.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "piston-texture 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -145,10 +145,10 @@ dependencies = [
 
 [[package]]
 name = "conrod_core"
-version = "0.64.0"
-source = "git+https://github.com/tdaffin/conrod?branch=fix_crop#133d16cc005449203087cb51957af2c3110044a7"
+version = "0.65.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "conrod_derive 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)",
+ "conrod_derive 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "daggy 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "fnv 1.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "instant 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -159,8 +159,8 @@ dependencies = [
 
 [[package]]
 name = "conrod_derive"
-version = "0.64.0"
-source = "git+https://github.com/tdaffin/conrod?branch=fix_crop#133d16cc005449203087cb51957af2c3110044a7"
+version = "0.65.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 0.4.30 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 0.6.12 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -169,10 +169,10 @@ dependencies = [
 
 [[package]]
 name = "conrod_piston"
-version = "0.64.0"
-source = "git+https://github.com/tdaffin/conrod?branch=fix_crop#133d16cc005449203087cb51957af2c3110044a7"
+version = "0.65.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "conrod_core 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)",
+ "conrod_core 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "piston2d-graphics 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "pistoncore-input 0.24.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -1394,9 +1394,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum cloudabi 0.0.3 (registry+https://github.com/rust-lang/crates.io-index)" = "ddfc5b9aa5d4507acaf872de71051dfd0e309860e88966e1051e462a077aac4f"
 "checksum cocoa 0.18.4 (registry+https://github.com/rust-lang/crates.io-index)" = "cf79daa4e11e5def06e55306aa3601b87de6b5149671529318da048f67cdd77b"
 "checksum color_quant 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "0dbbb57365263e881e805dc77d94697c9118fd94d8da011240555aa7b23445bd"
-"checksum conrod_core 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)" = "<none>"
-"checksum conrod_derive 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)" = "<none>"
-"checksum conrod_piston 0.64.0 (git+https://github.com/tdaffin/conrod?branch=fix_crop)" = "<none>"
+"checksum conrod_core 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)" = "c5c5f0fdd225fc4cf6692c8f25cad97c309264645ecd7a822dd3908abc4361cc"
+"checksum conrod_derive 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)" = "3f4b037430c7e87936ba8f2c949dabc238f18ebb535c591d30a0fdd468fcae47"
+"checksum conrod_piston 0.65.0 (registry+https://github.com/rust-lang/crates.io-index)" = "14f37b2cffdb4af3460ec1238882c112163efe0fdebf92abcfaff75fc0f82f02"
 "checksum core-foundation 0.6.4 (registry+https://github.com/rust-lang/crates.io-index)" = "25b9e03f145fd4f2bf705e07b900cd41fc636598fe5dc452fd0db1441c3f496d"
 "checksum core-foundation-sys 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "e7ca8a5221364ef15ce201e8ed2f609fc312682a8f4e0e3d4aa5879764e0fa3b"
 "checksum core-graphics 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)" = "56790968ab1c8a1202a102e6de05fc6e1ec87da99e4e93e9a7d13efbfc1e95a9"
